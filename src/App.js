@@ -1,25 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Counters from "./components/ counters";
+import NavBar from "./components/navbar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    counters: [
+      { id: 1, value: 0 },
+      { id: 2, value: 0 },
+      { id: 3, value: 0 },
+      { id: 4, value: 0 },
+    ],
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    //if (prevProps.counter.value !== this.props.counter.value)
+    //update with ajax call
+  }
+
+  handle = {
+    delete: (id) => {
+      const counters = this.state.counters.filter((c) => c.id !== id);
+      this.setState({ counters: counters });
+    },
+    reset: () => {
+      const counters = this.state.counters.map((c) => {
+        c.value = 0;
+        return c;
+      });
+      this.setState({ counters });
+    },
+    increment: (counter) => {
+      const counters = [...this.state.counters];
+      const index = counters.indexOf(counter);
+      counters[index] = { ...counter };
+      counters[index].value++;
+      this.setState({ counters });
+    },
+    decrement: (counter) => {
+      const counters = [...this.state.counters];
+      const index = counters.indexOf(counter);
+      counters[index] = { ...counter };
+      counters[index].value = counters[index].value - 1;
+      this.setState({ counters });
+    },
+  };
+
+  render() {
+    return (
+      <>
+        <NavBar
+          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
+        />
+        <main className="">
+          <Counters
+            counters={this.state.counters}
+            onReset={this.handle.reset}
+            onDelete={this.handle.delete}
+            onIncrement={this.handle.increment}
+            onDecrement={this.handle.decrement}
+          />
+        </main>
+      </>
+    );
+  }
 }
 
 export default App;
