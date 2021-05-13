@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import LikeButton from "../components/likeButton";
+import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
 class MoviesTable extends Component {
   state = {
     movies: getMovies(),
+    currentPage: 1,
+    pageSize: 4,
   };
 
   handle = {
@@ -19,11 +23,17 @@ class MoviesTable extends Component {
       movies[index].liked = !movie.liked;
       this.setState({ movies });
     },
+    pageChange: (page) => {
+      this.setState({ currentPage: page });
+    },
   };
 
   render() {
     const { length: count } = this.state.movies;
+    const { currentPage, pageSize } = this.state;
+
     if (count === 0) return <p> There are no movies in the database </p>;
+
     return (
       <>
         <p className="body">
@@ -63,6 +73,12 @@ class MoviesTable extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          onPageChange={this.handle.pageChange}
+          itemCount={count}
+          pageSize={pageSize}
+          currentPage={currentPage}
+        />
       </>
     );
   }
