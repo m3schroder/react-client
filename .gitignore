@@ -11,6 +11,8 @@
 # production
 /build
 
+.workspace.code-workspace
+
 # misc
 .DS_Store
 .env.local
@@ -97,3 +99,4 @@ bootstrap examples/sticky-footer/index.html
 bootstrap examples/sticky-footer/sticky-footer.css
 bootstrap examples/sticky-footer-navbar/index.html
 bootstrap examples/sticky-footer-navbar/sticky-footer-navbar.css
+workspace.code-workspace
