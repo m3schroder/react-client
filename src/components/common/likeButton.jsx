@@ -6,8 +6,7 @@ const LikeButton = ({ onClick, item }) => {
   return (
     <i
       onClick={() => onClick(item)}
-      style={{ cursor: "pointer" }}
-      className={classes}
+      className={(classes, "clickable")}
       aria-hidden="true"
     ></i>
   );

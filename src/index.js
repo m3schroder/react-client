@@ -7,7 +7,7 @@ import "font-awesome/css/font-awesome.css";
 
 //import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import App from "./App";
+import App from "./Vividly";
 //import Counter from "./components/counter";
 
 ReactDOM.render(<App />, document.getElementById("root"));
