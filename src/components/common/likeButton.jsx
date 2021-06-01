@@ -1,14 +1,10 @@
 import React from "react";
 
 const LikeButton = ({ onClick, item }) => {
-  let classes = "col fa fa-heart";
+  let classes = "clickable col fa fa-heart";
   item.liked === true ? (classes += "") : (classes += "-o");
   return (
-    <i
-      onClick={() => onClick(item)}
-      className={(classes, "clickable")}
-      aria-hidden="true"
-    ></i>
+    <i onClick={() => onClick(item)} className={classes} aria-hidden="true"></i>
   );
 };
 

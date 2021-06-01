@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import Table from "./common/table";
 import LikeButton from "./common/likeButton";
@@ -7,7 +8,13 @@ class MoviesTable extends Component {
   render() {
     const { movies, sortColumn, onSort } = this.props;
     const columns = [
-      { label: "Title", path: "title" },
+      {
+        label: "Title",
+        path: "title",
+        content: (movie) => (
+          <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+        ),
+      },
       { label: "Genre", path: "genre.name" },
       { label: "Stock", path: "numberInStock" },
       { label: "Rate", path: "dailyRentalRate" },
@@ -31,6 +38,7 @@ class MoviesTable extends Component {
     ];
     return (
       <Table
+        formRoute={"/movies/"}
         data={movies}
         columns={columns}
         onSort={onSort}

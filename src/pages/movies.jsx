@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 
-import Pagination from "./common/pagination";
+import Pagination from "../components/common/pagination";
 import MoviesTable from "../components/moviesTable";
-import ListGroup from "./common/listGroup";
+import ListGroup from "../components/common/listGroup";
 import { paginate } from "../utils/paginate";
 
 class MovieTable extends Component {
@@ -27,6 +28,7 @@ class MovieTable extends Component {
     });
   }
 
+  // Top level handlers for the movies table
   handle = {
     delete: (movie, moviesOnPage) => {
       this.setState({
@@ -53,6 +55,7 @@ class MovieTable extends Component {
     },
   };
 
+  // Filters, sorts, and paginates the table of movies using lodash functions
   getPagedData = () => {
     const {
       movies: allMovies,
@@ -81,7 +84,7 @@ class MovieTable extends Component {
 
     return (
       <div className="row">
-        <div className="col-1 mt-5">
+        <div className="col-1">
           <ListGroup
             onItemSelect={this.handle.selectGenre}
             items={["All Movies", ...genres]}
@@ -89,7 +92,9 @@ class MovieTable extends Component {
           />
         </div>
         <div className="col">
-          <p className="body">There are {totalCount} movies in the database</p>
+          <Link className="btn btn-primary mb-3" to="/movies/new/">
+            New Movie
+          </Link>
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
